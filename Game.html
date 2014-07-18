@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="Game.css">
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="800px" height="800px"></canvas>
+    <div id="artControls">
+      <span>Grid Dimensions:</span>
+      <select class="gridDimensions">
+        <option value="small">Small</option>
+        <option value="medium" selected="true">Medium</option>
+        <option value="large">Large</option>
+        <option value="tall">Tall</option>
+        <option value="wide">Wide</option>
+      </select>
+      <span>Pixel Color:</span>
+      <input id="pxColor" type="color"></input>
+      <span>Transparency Color:</span>
+      <input id="bgColor" type="color"></input>
+      <input type="file" placeholder="Load file"></input>
+      <input type="button" value="Save"></input>
+    </div>
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="Game.js"></script>
+  </body>
+</html>
