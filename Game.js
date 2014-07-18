@@ -76,7 +76,7 @@ var artist = (function(idString){
   })();
   
   artist.bindInputs = function(){
-    var dragging = false;
+    var drawing = false;
     var erasing = false;
     
     $(document).on('contextmenu', function(event){
@@ -102,33 +102,33 @@ var artist = (function(idString){
 
     $('#' + idString).mousedown(function(event){
       event.preventDefault();
-      dragging = true;
       var xPixel = Math.floor(event.offsetX/25) - 1;
       var yPixel = Math.floor(event.offsetY/25) - 1;
-      if(event.button==2) erasing = true;
+      if(event.which===3) erasing = true;
+      else drawing = true;
       if (xPixel >= 0 && xPixel < artist.data.height && yPixel >= 0 && yPixel < artist.data.height ) {
         if (erasing) artist.data.updatePixel(xPixel,yPixel, '');
         else artist.data.updatePixel(xPixel,yPixel, artist.colors.px);
       }
-      if(event.which==2) return false;
+      if(event.which==3) return false;
     });
 
     $('#' + idString).mousemove(function(event){
       event.preventDefault();
-      if (dragging) {
+      if (drawing || erasing) {
         var xPixel = Math.floor(event.offsetX/25) - 1;
         var yPixel = Math.floor(event.offsetY/25) - 1;
         if (xPixel >= 0 && xPixel < artist.data.height && yPixel >= 0 && yPixel < artist.data.height ) {
           if (erasing) artist.data.updatePixel(xPixel,yPixel, '');
-          else artist.data.updatePixel(xPixel,yPixel, artist.colors.px);
+          else if(drawing) artist.data.updatePixel(xPixel,yPixel, artist.colors.px);
         }
       }
     });
 
     $('#' + idString).mouseup(function(event){
       event.preventDefault();
-      dragging = false;
-      erasing = false;
+      if(event.which===3) erasing = false;
+      else drawing = false;
     });
   }();
   
